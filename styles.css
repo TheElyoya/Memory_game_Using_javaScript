@@ -1,0 +1,254 @@
+@font-face {
+  font-family: Creepy;
+  src: url(Assets/Fonts/Creepy.woff) format("woff"),
+    url(Assets/Fonts/Creepy.woff2) format("woff2");
+}
+@font-face {
+  font-family: Lunacy;
+  src: url(Assets/Fonts/Lunacy.woff) format("woff"),
+    url(Assets/Fonts/Lunacy.woff2) format("woff2");
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  min-height: 100vh;
+  cursor: url("Assets/Cursors/Ghost.cur"), auto;
+}
+
+body {
+  background-image: radial-gradient(#92520a, #271700);
+}
+::selection {
+  color: #f3b88a;
+  background-color: #f67310;
+}
+
+.game-container {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 10px;
+  margin: 50px;
+  justify-content: center;
+  perspective: 500px;
+}
+@media (max-width: 600px) {
+  .game-container {
+    grid-template-columns: repeat(2, auto);
+  }
+  .game-info-container {
+    flex-direction: column;
+  }
+}
+
+.game-title {
+  font-family: Creepy, serif;
+  color: #f67310;
+  font-weight: normal;
+  text-align: center;
+  font-size: 85px;
+}
+
+.game-info-container {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-info {
+  font-family: Lunacy, serif;
+  font-size: 50px;
+  color: #e4aa7a;
+}
+
+.game-container .card {
+  height: 175px;
+  width: 125px;
+  transform-style: preserve-3d;
+  position: relative;
+  cursor: url("Assets/Cursors/GhostHover.cur"), auto;
+}
+
+.card-face {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  border-width: 1px;
+  border-color: #f67310;
+  border-style: solid;
+  transition: transform 500ms ease-in-out;
+}
+
+.card .front {
+  transform: rotateY(180deg);
+}
+
+.card.visible .back {
+  transform: rotateY(-180deg);
+}
+.card.visible .front {
+  transform: rotateY(0);
+}
+
+.card.matched .front .midd-img {
+  animation: dance 1s linear 500ms infinite;
+}
+
+@keyframes dance {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-30deg);
+  }
+  75% {
+    transform: rotate(30deg);
+  }
+}
+.card-face .cob-web {
+  position: absolute;
+  width: 47px;
+  height: 47px;
+  transition: width 100ms ease-in-out, height 100ms ease-in-out;
+}
+.card-face:hover .cob-web {
+  width: 52px;
+  height: 52px;
+}
+
+.cob-web-top-left {
+  top: 0;
+  left: 0;
+  transform: rotate(270deg);
+}
+.cob-web-top-right {
+  top: 0;
+  right: 0;
+}
+.cob-web-bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: rotate(180deg);
+}
+.cob-web-bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: rotate(90deg);
+}
+.back {
+  background-color: black;
+}
+
+.card-face .Spider {
+  align-self: flex-start;
+  transform: translateY(-10px);
+  transition: transform 100ms ease-in-out;
+}
+.back:hover .Spider {
+  transform: translateY(0px);
+}
+
+.front {
+  background-color: #e4aa7a;
+  border-color: #333;
+}
+.midd-img {
+  transform: scale(0.9);
+  transition: transform 100ms ease-in-out;
+}
+
+.front:hover .midd-img {
+  transform: scale(1);
+}
+
+.overlay-text {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-family: Creepy, serif;
+  color: #f67310;
+  font-size: 10em;
+  z-index: 500;
+}
+
+.overlay-text.visible {
+  display: flex;
+  animation: overlay-grow 600ms forwards;
+  flex-direction: column;
+}
+@media (max-width: 600px) {
+  .overlay-text,
+  .overlay-text.visible {
+    animation: overlay-growTwo 600ms forwards;
+  }
+}
+@media (min-width: 601px) and (max-width: 735px) {
+  .overlay-text,
+  .overlay-text.visible {
+    animation: overlay-growFour 600ms forwards;
+  }
+}
+@media (min-width: 736px) and (max-width: 1200px) {
+  .overlay-text,
+  .overlay-text.visible {
+    animation: overlay-growThree 600ms forwards;
+  }
+}
+
+.restart {
+  font-size: 3rem;
+}
+
+@keyframes overlay-grow {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 0;
+  }
+  to {
+    background-color: rgba(0, 0, 0, 80%);
+    font-size: 10em;
+  }
+}
+@keyframes overlay-growTwo {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 0;
+  }
+  to {
+    background-color: rgba(0, 0, 0, 80%);
+    font-size: 3.1em;
+  }
+}
+@keyframes overlay-growThree {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 0;
+  }
+  to {
+    background-color: rgba(0, 0, 0, 80%);
+    font-size: 7em;
+  }
+}
+@keyframes overlay-growFour {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 0;
+  }
+  to {
+    background-color: rgba(0, 0, 0, 80%);
+    font-size: 5em;
+  }
+}
